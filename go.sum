@@ -112,6 +112,7 @@ github.com/labstack/gommon v0.3.1 h1:OomWaJXm7xR6L1HmEtGyQf26TEn7V6X88mktX9kee9o
 github.com/labstack/gommon v0.3.1/go.mod h1:uW6kP17uPlLJsD3ijUYn3/M5bAxtlZhMI6m3MFxTMTM=
 github.com/leodido/go-urn v1.2.0 h1:hpXL4XnriNwQ/ABnpepYM/1vCLWNDfUNts8dX3xTG6Y=
 github.com/leodido/go-urn v1.2.0/go.mod h1:+8+nEpDfqqsY+g338gtMEUOtuK+4dEMhiQEgxpxOKII=
+github.com/liangdas/mqant v1.4.13 h1:mvVPReHcoacbV/Azd4fAUy62siPUWAe9SRnzHhXhCGw=
 github.com/liangdas/mqant v1.4.13/go.mod h1:SiYDrXv1OGomPiZmBRMXvGrl8QdiwDQLGqcC1+NWPbQ=
 github.com/liangdas/mqant v2.0.0+incompatible h1:VTHZQf5ARDXqnJivqvqyfW6KZEm7FJHhzpYyOWjrOPY=
 github.com/liangdas/mqant v2.0.0+incompatible/go.mod h1:inl0LpqB2/OqbD73zleLHiD9lVGUDRP2jrmgUp/4g10=
