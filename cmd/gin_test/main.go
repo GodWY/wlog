@@ -1,41 +1,39 @@
 package main
 
 import (
-	"github.com/GodWY/wlog"
-	"github.com/GodWY/wlog/beego"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"tygit.tuyoo.com/gocomponents/tylog"
+	"tygit.tuyoo.com/gocomponents/tylog/beego"
 )
 
 func main() {
 	router := gin.New()
 	cc := &beego.Options{}
-
 	for _, opt := range [...]beego.Option{
 		beego.WithFilename("logs/development.log"),
 		beego.WithMaxlines(10000),
 		beego.WithMaxsize(1 << 28),
 		beego.WithDaily(true),
 		beego.WithMaxDays(7),
-		beego.WithRotate(true),
+		beego.WithRotate(false),
 		beego.WithLevel(0),
 		beego.WithPerm("0600"),
-		beego.WithSeparate([]string{"error"}...),
+		beego.WithSeparate([]string{"error", "info"}...),
 		beego.WithDebug(false),
 	} {
 		_ = opt(cc)
 	}
-	b := beego.New(cc)
-	logger := wlog.NewEntry(b, "app")
+	xx := tylog.NewLogger(beego.New(cc), "elk")
 
+	logger := xx.WithElkEntry("xxxx")
 	router.GET("/get", func(context *gin.Context) {
-		logger.MustAppendFromGinContext(context).EventId("login").SubEventId("pppp")
-
+		// defer logger.Flush()
+		// logger.Info("ppppppppp")
+		logger.MustAppendFromGinContext(context).EventId("getxxxx").UseID("1212121212121212121212")
 		defer logger.Flush()
-		logger.Info("ppppppppp")
 		context.JSON(http.StatusOK, "success")
-		return
 	})
 	//router.Use(middleware.LogForGin(logger))
 	router.Run()

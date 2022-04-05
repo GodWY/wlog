@@ -10,6 +10,7 @@ import (
 	jsoniter "github.com/json-iterator/go"
 	"github.com/labstack/echo"
 
+	"github.com/liangdas/mqant/gate"
 	"github.com/liangdas/mqant/log"
 )
 
@@ -107,6 +108,20 @@ func GetLogger(ctx echo.Context) *Logger {
 		random:     ctx.Request().Header.Get("Random"),
 		timestamp:  ctx.Request().Header.Get("Timestamp"),
 		signature:  ctx.Request().Header.Get("Signature"),
+	}
+}
+
+// GetLogger 获取 Logger 对象
+func GetLoggerWithSession(session gate.Session) *Logger {
+	return &Logger{
+		trace:      session,
+		topic:      session.GetTopic(),
+		ip:         session.GetIP(),
+		server_id:  session.GetServerID(),
+		user_id:    session.GetUserID(),
+		session_id: session.GetSessionID(),
+		client_id:  session.Get("cid"),
+		device_id:  session.Get("did"),
 	}
 }
 

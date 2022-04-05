@@ -2,8 +2,9 @@ package wlog
 
 import (
 	"fmt"
-	"gotest.tools/v3/assert"
 	"testing"
+
+	"gotest.tools/v3/assert"
 )
 
 func TestWithFiled(t *testing.T) {
@@ -15,8 +16,8 @@ func TestWithFiled(t *testing.T) {
 }
 
 func TestEntry(t *testing.T) {
-	log := NewEntry(nil, "msg")
-	log.MustAppend().Flush()
+	// log := NewEntry(nil, "msg")
+	// log.MustAppend().Flush()
 }
 
 func BenchmarkWithFiled(b *testing.B) {

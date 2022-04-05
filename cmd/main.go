@@ -1,8 +1,10 @@
 package main
 
 import (
-	"github.com/GodWY/wlog"
-	"github.com/GodWY/wlog/beego"
+	"time"
+
+	"tygit.tuyoo.com/gocomponents/tylog"
+	"tygit.tuyoo.com/gocomponents/tylog/beego"
 )
 
 func main() {
@@ -22,14 +24,21 @@ func main() {
 	} {
 		_ = opt(cc)
 	}
+	xx := tylog.NewLogger(beego.New(cc), "myself")
+	for i := 0; i < 100; i++ {
+		go func() {
+			logger := xx.WithEntry("findId")
+			logger.MustAppend().String("Xxxxx", "1111111").Int32("aaaa", 111)
 
-	logger := wlog.NewEntry(beego.New(cc), "msg")
-	logger.MustAppend().EventId("xxxx").String("Xxxxx", "1111111")
-	logger.Flush()
-	logger.Info("xxxx121212")
+			logger.Info("xxxx121212")
 
-	// 第二种 直接打印
-	logger2 := wlog.NewEntry(beego.New(cc), "msg")
-	logger2.MustAppend().Info("xxxxxxxxx")
+			logger.MustAppend().String("yyyyyy", "1111111").Int32("bbbb", 222)
 
+			logger.Error("abc")
+			logger.Debug("ppp")
+			// xxxx121212
+			logger.Flush()
+		}()
+	}
+	time.Sleep(5 * time.Second)
 }

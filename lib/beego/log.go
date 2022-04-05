@@ -38,13 +38,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/GodWY/wlog"
-	jsoniter "github.com/json-iterator/go"
-	"log"
+	jsoniter "github.com/json-iterator/go"	"log"
 	"os"
 	"runtime"
 	"strings"
 	"sync"
 	"time"
+
+	"tygit.tuyoo.com/gocomponents/tylog"
+
+	jsoniter "github.com/json-iterator/go"
 )
 
 // RFC5424 log message levels.
@@ -533,7 +536,7 @@ func (bl *BeeLogger) writeMsg(span *BeegoTraceSpan, logLevel int, msg string, v 
 }
 
 // writeMsgf 格式化
-func (bl *BeeLogger) writeMsgf(span *BeegoTraceSpan, logLevel int, msg string, fileds wlog.TYFields) error {
+func (bl *BeeLogger) writeMsgf(span *BeegoTraceSpan, logLevel int, msg string, fileds tylog.TYFields) error {
 	if !bl.init {
 		bl.lock.Lock()
 		bl.setLogger(AdapterConsole)
@@ -556,7 +559,7 @@ func (bl *BeeLogger) writeMsgf(span *BeegoTraceSpan, logLevel int, msg string, f
 		msg = LevelPrefix[logLevel] + "[ msg = " + msg + " "
 		var newFil string
 		for key, value := range fileds {
-			newFil += fmt.Sprintf("%s=%s", key, value) + ","
+			newFil += fmt.Sprintf("%s=%v", key, value) + ","
 		}
 		newFil = strings.TrimRight(newFil, ",")
 		v := newFil + " ]"
@@ -756,7 +759,7 @@ func (bl *BeeLogger) Debug(span *BeegoTraceSpan, format string, v ...interface{}
 }
 
 // Debugf Log DEBUG level message.
-func (bl *BeeLogger) Debugf(span *BeegoTraceSpan, format string, fileds wlog.TYFields) {
+func (bl *BeeLogger) Debugf(span *BeegoTraceSpan, format string, fileds tylog.TYFields) {
 	if LevelDebug > bl.level {
 		return
 	}
@@ -764,7 +767,7 @@ func (bl *BeeLogger) Debugf(span *BeegoTraceSpan, format string, fileds wlog.TYF
 }
 
 // Debugf Log DEBUG level message.
-func (bl *BeeLogger) Warnf(span *BeegoTraceSpan, format string, fileds wlog.TYFields) {
+func (bl *BeeLogger) Warnf(span *BeegoTraceSpan, format string, fileds tylog.TYFields) {
 	if LevelWarn > bl.level {
 		return
 	}
@@ -772,7 +775,7 @@ func (bl *BeeLogger) Warnf(span *BeegoTraceSpan, format string, fileds wlog.TYFi
 }
 
 // Debugf Log DEBUG level message.
-func (bl *BeeLogger) Errorf(span *BeegoTraceSpan, format string, fileds wlog.TYFields) {
+func (bl *BeeLogger) Errorf(span *BeegoTraceSpan, format string, fileds tylog.TYFields) {
 	if LevelError > bl.level {
 		return
 	}
@@ -797,7 +800,7 @@ func (bl *BeeLogger) Info(span *BeegoTraceSpan, format string, v ...interface{})
 	bl.writeMsg(span, LevelInfo, format, v...)
 }
 
-func (bl *BeeLogger) Infof(span *BeegoTraceSpan, format string, v wlog.TYFields) {
+func (bl *BeeLogger) Infof(span *BeegoTraceSpan, format string, v tylog.TYFields) {
 	if LevelInfo > bl.level {
 		return
 	}
