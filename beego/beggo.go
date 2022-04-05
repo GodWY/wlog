@@ -3,12 +3,10 @@ package beego
 import (
 	"encoding/json"
 
+	"github.com/GodWY/wlog"
 	logs "github.com/GodWY/wlog/lib/beego"
 
 	"github.com/google/uuid"
-
-	"tygit.tuyoo.com/gocomponents/tylog"
-	logs "tygit.tuyoo.com/gocomponents/tylog/lib/beego"
 )
 
 type BeegoLogger struct {
@@ -16,7 +14,7 @@ type BeegoLogger struct {
 	log     *logs.BeeLogger
 	Trace   *Trace
 	Msg     string
-	Level   tylog.Level
+	Level   wlog.Level
 	gaField map[string]string
 }
 
@@ -54,7 +52,7 @@ func (bee *BeegoLogger) WithFilter() {
 }
 
 // Info 输出日志格式
-func (bee *BeegoLogger) Info(level tylog.Level, msg string, data tylog.TYFields) {
+func (bee *BeegoLogger) Info(level wlog.Level, msg string, data wlog.TYFields) {
 	bee.Trace.BeegoTraceSpan = &logs.BeegoTraceSpan{
 		Trace: uuid.New().String(),
 	}
@@ -63,19 +61,19 @@ func (bee *BeegoLogger) Info(level tylog.Level, msg string, data tylog.TYFields)
 		return
 	}
 	switch level {
-	case tylog.DEBUG:
+	case wlog.DEBUG:
 		bee.log.Debugf(bee.Trace.BeegoTraceSpan, msg, data)
-	case tylog.INFO:
+	case wlog.INFO:
 		bee.log.Infof(bee.Trace.BeegoTraceSpan, msg, data)
-	case tylog.WARNING:
+	case wlog.WARNING:
 		bee.log.Warnf(bee.Trace.BeegoTraceSpan, msg, data)
-	case tylog.ERROR:
+	case wlog.ERROR:
 		bee.log.Errorf(bee.Trace.BeegoTraceSpan, msg, data)
 	}
 }
 
 // SetLevel 设置日志输出级别
-func (bee *BeegoLogger) SetLevel(level tylog.Level) {
+func (bee *BeegoLogger) SetLevel(level wlog.Level) {
 	bee.Level = level
 }
 
@@ -93,7 +91,7 @@ func CreateBeegoLogger(opt *Options) *logs.BeeLogger {
 	log.SetContentType("application/json")
 	config, err := json.Marshal(opt)
 	if err != nil {
-		logs.Error(err)
+		// logs.Error(err)
 		return nil
 	}
 	log.SetLogger(logs.AdapterMultiFile, string(config))

@@ -1,4 +1,4 @@
-package wylog
+package wlog
 
 import (
 	"errors"

@@ -3,9 +3,9 @@ package main
 import (
 	"net/http"
 
+	"github.com/GodWY/wlog"
+	"github.com/GodWY/wlog/beego"
 	"github.com/gin-gonic/gin"
-	"tygit.tuyoo.com/gocomponents/tylog"
-	"tygit.tuyoo.com/gocomponents/tylog/beego"
 )
 
 func main() {
@@ -25,7 +25,7 @@ func main() {
 	} {
 		_ = opt(cc)
 	}
-	xx := tylog.NewLogger(beego.New(cc), "elk")
+	xx := wlog.NewLogger(beego.New(cc), "elk")
 
 	logger := xx.WithElkEntry("xxxx")
 	router.GET("/get", func(context *gin.Context) {

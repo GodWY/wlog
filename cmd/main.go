@@ -3,8 +3,8 @@ package main
 import (
 	"time"
 
-	"tygit.tuyoo.com/gocomponents/tylog"
-	"tygit.tuyoo.com/gocomponents/tylog/beego"
+	"github.com/GodWY/wlog"
+	"github.com/GodWY/wlog/beego"
 )
 
 func main() {
@@ -20,11 +20,11 @@ func main() {
 		beego.WithLevel(0),
 		beego.WithPerm("0600"),
 		beego.WithSeparate([]string{"error", "info"}...),
-		beego.WithDebug(false),
+		beego.WithDebug(true),
 	} {
 		_ = opt(cc)
 	}
-	xx := tylog.NewLogger(beego.New(cc), "myself")
+	xx := wlog.NewLogger(beego.New(cc), "myself")
 	for i := 0; i < 100; i++ {
 		go func() {
 			logger := xx.WithEntry("findId")

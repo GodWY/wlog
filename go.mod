@@ -8,7 +8,7 @@ require (
 	github.com/google/uuid v1.0.0
 	github.com/json-iterator/go v1.1.12
 	github.com/labstack/echo v3.3.10+incompatible
+	github.com/labstack/gommon v0.3.1 // indirect
 	github.com/liangdas/mqant v1.4.13
 	gotest.tools/v3 v3.1.0
-	tygit.tuyoo.com/gocomponents/tylog v1.0.4
 )
