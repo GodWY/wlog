@@ -91,6 +91,8 @@ func (entry *Entry) Flush() *Entry {
 		panic(ErrorAdapter)
 	}
 	defer entry.Logger.releaseEntry(entry)
+	entry.Data["func"] = entry.entryMsg
+	entry.Data["service"] = entry.msg
 	entry.Logger.adapter.Info(INFO, "flush", entry.Data)
 	return entry
 }
